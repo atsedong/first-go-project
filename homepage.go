@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"html/template"
 	"net/http"
 )
@@ -11,16 +12,16 @@ type pageVariables struct {
 }
 
 func main() {
-	http.HandleFunc("/homepage", homePage)
+	http.HandleFunc("/", homePage)
+
+	fs := http.FileServer(http.Dir("static/"))
+	http.Handle("/static/", http.StripPrefix("/static/", fs))
+
 	http.ListenAndServe(":8080", nil)
 }
 
 func homePage(w http.ResponseWriter, r *http.Request) {
 	tmp := template.Must(template.ParseFiles("index.html"))
-
-	// var homePageVariables pageVariables
-	// homePageVariables.special = "Cherry blossom and strawberry cake"
-	// homePageVariables.bestOfDay = "Lemon yogurt tart"
 
 	homePageVariables := pageVariables{
 		Special:   "Cherry blossom and strawberry cake",
@@ -29,6 +30,6 @@ func homePage(w http.ResponseWriter, r *http.Request) {
 
 	err := tmp.Execute(w, homePageVariables)
 	if err != nil {
-		println("error occurred: ", err)
+		fmt.Println("error occurred: ", err)
 	}
 }
