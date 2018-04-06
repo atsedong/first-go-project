@@ -3,6 +3,6 @@
 
 <h1>Installation</h1>
 <pre>
-    <code>docker build -t firstgoproject .</code>
-    <p>docker run --rm -it -p 8080:8080 firstgoproject</p>
+    <span>docker build -t firstgoproject .</span>
+    <span>docker run --rm -it -p 8080:8080 firstgoproject</span>
 </pre>
