@@ -3,6 +3,7 @@ FROM golang:latest as builder
 WORKDIR /go/src/github.com/first-go-project
 
 RUN go get -d -v golang.org/x/net/html
+#RUN go get -d -v ./...
 
 COPY main.go .
 COPY index.html .
